@@ -42,6 +42,7 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     role = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
@@ -71,3 +72,12 @@ class User(AbstractBaseUser):
         """Is the user a member of staff?"""
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class Vehicle(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, to_field='id')
+
+    name = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+    number = models.CharField(max_length=50)

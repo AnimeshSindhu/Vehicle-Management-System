@@ -1,9 +1,14 @@
 from django.contrib import admin
-from user.models import User
+from .models import User, Vehicle
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
 # Register your models here.
+@admin.register(Vehicle)
+class VehicleAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'name', 'model', 'number']
+
+
 class UserModelAdmin(BaseUserAdmin):
     list_display = ["id", "email", "name", "role", "is_admin"]
     list_filter = ["is_admin"]
